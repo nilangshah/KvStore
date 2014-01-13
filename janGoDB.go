@@ -2,7 +2,6 @@ package main
 
 import (
         "bufio"
-        "flag"
         "fmt"
         "io"
         "net"
@@ -14,23 +13,20 @@ var (
 )
 
 func main() {
-            flag.Parse()
-
         listener, err := net.Listen("tcp", "127.0.0.1:11211")
         if err != nil {
                 panic("Error listening on 11211: " + err.Error())
         }
 
         kvMap = make(map[string][]byte)
-
-                for {
+         for {
                         netconn, err := listener.Accept()
                         if err != nil {
                                 panic("Accept error: " + err.Error())
                         }
 
                         go handleConn(netconn)
-                }
+             }
 
 }
 
