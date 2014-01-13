@@ -20,6 +20,7 @@ Usage:
     
     You will see print statements of sending and recieving massages between client and server.
     
+    I have assumed that you have set GOPATH and PATH for GOLANG.
     Currently I have written client only in java but I will add client in Go and python for testing purpose.
     
     Thank you. 
