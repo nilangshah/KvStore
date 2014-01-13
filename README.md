@@ -4,8 +4,11 @@ janGoDB
 It's a key value store written in GO Language. 
 
 Usage:
-    go get github.com/nilangshah/janGoDB 
+    
+    go get github.com/nilangshah/janGoDB
+    
     go install github.com/nilangshah/janGoDB
+    
     bin/janGoDB
     
     This will start a server which is listening on port 11211 on localhost.   
