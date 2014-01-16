@@ -1,13 +1,13 @@
-janGoDB
+KvStore
 =======
 
 It's a key value store written in GO Language. 
 
 Usage:
     
-    go get github.com/nilangshah/janGoDB
+    go get github.com/nilangshah/KvStore
     
-    go install github.com/nilangshah/janGoDB
+    go install github.com/nilangshah/KvStore
     
     bin/janGoDB
     
@@ -17,7 +17,11 @@ Usage:
     
     javac tcpclient.java
     java TcpClient
-    
+    go run test1_go.go
+        This will start 100 client and will set and get values concurrently.
+    go run test2_go.go
+        This is a normal test for set and get method.
+        
     You will see print statements of sending and recieving massages between client and server.
     
     I have assumed that you have set GOPATH and PATH for GOLANG.
