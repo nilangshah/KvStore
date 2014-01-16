@@ -5,12 +5,18 @@ import (
         "fmt"
         "io"
         "net"
+	"sync"
         "strings"
 )
 
-var (
-  kvMap = map[string][]byte{}
-)
+
+
+type GoDB struct {
+	sync.RWMutex
+	kvMap     map[string][]byte
+}
+ 
+var goDB *GoDB
 
 func main() {
         listener, err := net.Listen("tcp", "127.0.0.1:11211")
@@ -18,7 +24,7 @@ func main() {
                 panic("Error listening on 11211: " + err.Error())
         }
 
-        kvMap = make(map[string][]byte)
+        goDB = New()
          for {
                         netconn, err := listener.Accept()
                         if err != nil {
@@ -29,6 +35,17 @@ func main() {
              }
 
 }
+
+
+func New() *GoDB {
+	d := &GoDB{
+		kvMap:     map[string][]byte{},
+	}
+
+	return d
+}
+
+
 
 /*
 * Networking
@@ -57,19 +74,23 @@ func handleConn(conn net.Conn) {
                 switch cmd {
 
                 case "get":
-                        key := subContent[1]
-                        val, ok := kvMap[key]
-                        fmt.Println("value get = ",string(val))
+			goDB.RLock()
+			key := subContent[1]
+                        val, ok := goDB.kvMap[key]
                         if ok {
                                 conn.Write([]uint8(string(val) + "\r\n"))
-                        }
+                        } else {
+				 conn.Write([]uint8("NIL\r\n"))		
+			}
+			goDB.RUnlock()
                       continue
                 case "set":
+			goDB.Lock()
                         key := subContent[1]
-                        fmt.Println(key)
                         val := subContent[2]
-                        kvMap[key] = []byte(val)
+                        goDB.kvMap[key] = []byte(val)
                         conn.Write([]uint8("STORED\r\n"))
+			goDB.Unlock()
 			continue
 		case "quit":
 			break
