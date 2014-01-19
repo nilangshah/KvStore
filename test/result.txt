@@ -1,0 +1,53 @@
+
+storing 1k values 
+
+real	0m3.952s
+user	0m0.492s
+sys	0m0.280s
+
+read inmemory 1k values
+
+
+real	0m2.155s
+user	0m0.464s
+sys	0m0.224s
+
+
+read 1st time 1k values after restart
+
+real	0m2.191s
+user	0m0.428s
+sys	0m0.268s
+
+
+
+reading 1k values and closing each conn 1st time
+
+real	0m1.810s
+user	0m0.444s
+sys	0m0.304s
+
+
+reading 1k values in mem and  closing conn 
+
+real	0m1.568s
+user	0m0.428s
+sys	0m0.304s
+
+
+reading and setting 500 values same time 1st time
+
+real	0m4.006s
+user	0m0.496s
+sys	0m0.252s
+
+
+after server restart
+
+real	0m4.579s
+user	0m0.452s
+sys	0m0.328s
+
+
+
+
